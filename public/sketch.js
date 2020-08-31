@@ -7,6 +7,7 @@ let env;
 let blocks;
 let value_table;
 let w;
+let time;
 
 let new_state, winner, done;
 
@@ -56,6 +57,11 @@ function draw(){
 
   //Display the squares that make the grid;
   blocks.forEach(b => b.display());
+
+  let t = millis() - time;
+  if (done && t > 3000){
+    reset();
+  }
 }
 
 
@@ -79,6 +85,7 @@ function mouseClicked(){
         }
         else {
             giveReward(winner);
+            time = millis();
         }
         break;
       }
@@ -103,6 +110,7 @@ function agentMove(){
 
   if (done){
     giveReward(winner);
+    time = millis();
 }
 }
 
@@ -122,7 +130,7 @@ else{
 httpPost('/save', agent.states_value, 'json');
 }
 
-function keyPressed(){
+function reset(){
   //Start the game again;
   //Reinitialize the board;
   for (let i = 0; i < BOARD_ROW * BOARD_COL; i++){
@@ -133,6 +141,9 @@ function keyPressed(){
   //Create a brand new environment;
   env = new Env(agent);
   done = false;
-
   agentMove();
+}
+
+function keyPressed(){
+  reset();
 }

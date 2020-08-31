@@ -86,7 +86,6 @@ function Agent(table){
        if (! this.states_value[st]){
          this.states_value[st] = 0;
        }
-
        //Use temporal difference + Q-learning;
        //Discount the reward while it gets back;
        this.states_value[st] += this.lr * (this.gamma * reward - this.states_value[st]);
