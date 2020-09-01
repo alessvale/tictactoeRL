@@ -48,24 +48,33 @@ function draw(){
   background(255);
 
   //draw the grid;
-  stroke(0);
-  strokeWeight(8);
-  line(width * 0.5 - w * 0.5, height * 0.5 - 1.5 * w, width * 0.5 - w * 0.5,  height * 0.5 + 1.5 * w );
-  line(width * 0.5 + w * 0.5, height * 0.5 - 1.5 * w, width * 0.5 + w * 0.5,  height * 0.5 + 1.5 * w );
-  line(width * 0.5 - w * 1.5, height * 0.5 - 0.5 * w, width * 0.5 + w * 1.5,  height * 0.5 - 0.5 * w );
-  line(width * 0.5 - w * 1.5, height * 0.5 + 0.5 * w, width * 0.5 + w * 1.5,  height * 0.5 + 0.5 * w );
+  drawGrid();
 
   //Display the squares that make the grid;
   blocks.forEach(b => b.display());
 
+  //Restart automatically when done;
   let t = millis() - time;
   if (done && t > 3000){
     reset();
   }
 }
 
+function drawGrid(){
+  noStroke()
+  fill(100, 149, 237, 15);
+  rectMode(CENTER);
+  rect(width * 0.5, height * 0.5, w * 3, w * 3);
+  noFill();
+  stroke(0);
+  strokeWeight(8);
+  line(width * 0.5 - w * 0.5, height * 0.5 - 1.5 * w, width * 0.5 - w * 0.5,  height * 0.5 + 1.5 * w );
+  line(width * 0.5 + w * 0.5, height * 0.5 - 1.5 * w, width * 0.5 + w * 0.5,  height * 0.5 + 1.5 * w );
+  line(width * 0.5 - w * 1.5, height * 0.5 - 0.5 * w, width * 0.5 + w * 1.5,  height * 0.5 - 0.5 * w );
+  line(width * 0.5 - w * 1.5, height * 0.5 + 0.5 * w, width * 0.5 + w * 1.5,  height * 0.5 + 0.5 * w );
+}
 
-function mouseClicked(){
+function mouseReleased(){
   if (!done){
   for (let i = 0; i < blocks.length; i++){
     let b = blocks[i];
