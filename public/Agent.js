@@ -6,16 +6,14 @@ function Agent(table){
   this.board;
   this.states;
   this.states_value = table;
-  this.symbol = 1; //Useful if you want to used multiple agents competing;
+  this.symbol = 1; //Useful if you want to use multiple agents competing;
   this.lr = 0.2;
   this.gamma = 0.9;
   this.epsilon = 0.3;
 
 
   //Initialize agent;
-
   this.init = function(){
-
     //Initialize the board state;
     this.board = [];
     for (let i = 0; i < BOARD_ROW * BOARD_COL; i++){
@@ -44,14 +42,15 @@ function Agent(table){
   }
 
   //Choose an action with a epsilon-greedy algorithm;
-
   this.chooseAction = function(positions){
     let val_max = -1000;
     let action;
     for (let i = 0; i < positions.length; i++){
       let p = positions[i];
+      //Copy the current board configuration;
       let new_board = [...this.board];
       new_board[p.x + p.y * BOARD_ROW] = this.symbol;
+      //Get a hash for the board state;
       let new_hash = this.getHash(new_board);
       let value;
       if (this.states_value[new_hash]){
@@ -63,8 +62,14 @@ function Agent(table){
       }
 
       if (value >= val_max){
+        if (value == val_max && random(0, 1) < 0.5){
+        //do nothing, i.e. keep the previous action;
+      }
+      else{
+        action = p
+      }
         val_max = value;
-        action = p;
+
       }
     }
     //From time to time, explore non-optimal actions!
@@ -75,7 +80,7 @@ function Agent(table){
     else
     {
     return action;
-}
+    }
   }
 
   // Update the value functions from the states array;
