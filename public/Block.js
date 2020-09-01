@@ -11,13 +11,13 @@ function Block(x, y, w){
   this.display = function(){
     if ( this.symbol == 1){
       strokeWeight(5);
-      stroke(255, 0, 0);
+      stroke(100, 149, 237);
       ellipse(this.x, this.y, this.w * scl, this.w * scl)
     }
     if (this.symbol == -1){
       push();
       strokeWeight(5);
-      stroke(0, 0, 255);
+      stroke(255, 166, 76);
       translate(this.x, this.y);
       rotate(PI * 0.25);
       line(-this.w * scl * 0.8, 0, this.w * scl * 0.8, 0);
